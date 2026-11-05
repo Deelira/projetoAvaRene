@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Meu Painel{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-md-10 mx-auto">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Painel do Usuário</h4>
+            </div>
+            <div class="card-body p-4">
+                <h5 class="card-title">Bem-vindo(a), {{ current_user.nome }}!</h5>
+                <p class="card-text text-muted">
+                    Você está logado como <strong>{{ current_user.tipo.value|capitalize }}</strong>.
+                </p>
+
+                <hr>
+
+                <div class="row mt-4">
+                    <!-- ÁREA DO PRESTADOR -->
+                    {% if current_user.tipo.value == 'prestador' %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card bg-light h-100">
+                                <div class="card-body text-center">
+                                    <h5>Meus Serviços</h5>
+                                    <p class="text-muted small">Veja e gerencie o que você oferece.</p>
+                                    <a href="{{ url_for('servico.meus_servicos') }}" class="btn btn-outline-primary w-100 mb-2">Ver Serviços</a>
+                                    <a href="{{ url_for('servico.cadastrar') }}" class="btn btn-success w-100">Novo Serviço</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card bg-light h-100">
+                                <div class="card-body text-center">
+                                    <h5>Pedidos Recebidos</h5>
+                                    <p class="text-muted small">Quem quer contratar você.</p>
+                                    <a href="{{ url_for('contratacao.recebidas') }}" class="btn btn-warning w-100 mt-4">Ver Pedidos</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- ÁREA DO CLIENTE (Prestadores também veem) -->
+                    <div class="col-md-4 mb-3">
+                        <div class="card bg-light h-100">
+                            <div class="card-body text-center">
+                                <h5>Procurar Serviços</h5>
+                                <p class="text-muted small">Contrate um serviço no catálogo.</p>
+                                <a href="{{ url_for('servico.catalogo') }}" class="btn btn-primary w-100 mt-4">Ver Catálogo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card bg-light h-100">
+                            <div class="card-body text-center">
+                                <h5>Minhas Contratações</h5>
+                                <p class="text-muted small">Acompanhe os serviços que você pediu.</p>
+                                <a href="{{ url_for('contratacao.minhas') }}" class="btn btn-outline-primary w-100 mt-4">Meus Pedidos</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BOTÃO DE UPGRADE (Só aparece se for Cliente) -->
+                    {% if current_user.tipo.value == 'cliente' %}
+                        <div class="col-12 mt-3">
+                            <div class="alert alert-info d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Quer oferecer seus próprios serviços?</strong><br>
+                                    <small>Torne-se um prestador e ganhe dinheiro com o ConectaServ.</small>
+                                </div>
+                                <form action="{{ url_for('auth.tornar_prestador') }}" method="POST">
+                                    <button type="submit" class="btn btn-success">Quero ser Prestador</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mt-4 text-end">
+                    <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-danger btn-sm">Sair da conta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

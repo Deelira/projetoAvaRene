@@ -1,0 +1,72 @@
+{% extends "base.html" %} {% block title %}{% if is_meus_servicos %}Meus
+Serviços{% else %}Catálogo de Serviços{% endif %}{% endblock %} {% block content
+%}
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>
+        {% if is_meus_servicos %} Meus Serviços Cadastrados {% else %} Catálogo
+        de Serviços Disponíveis {% endif %}
+      </h2>
+
+      {% if is_meus_servicos %}
+      <a href="{{ url_for('servico.cadastrar') }}" class="btn btn-success"
+        >+ Novo Serviço</a
+      >
+      {% endif %}
+    </div>
+
+    {% if servicos %}
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      {% for servico in servicos %}
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-primary">{{ servico.titulo }}</h5>
+            <p class="card-text">{{ servico.descricao }}</p>
+            <h6 class="text-success fw-bold">
+              R$ {{ "%.2f"|format(servico.preco) }}
+            </h6>
+
+            {% if not is_meus_servicos %}
+            <!-- Se for catálogo, mostra quem é o prestador -->
+            <small class="text-muted"
+              >Prestador: {{ servico.prestador.nome }}</small
+            >
+            {% endif %}
+          </div>
+          <div class="card-footer bg-white border-top-0">
+            {% if is_meus_servicos %}
+            <span class="badge bg-secondary">ID: {{ servico.id }}</span>
+            {% else %}
+            <form
+              action="{{ url_for('contratacao.nova', servico_id=servico.id) }}"
+              method="POST"
+            >
+              <button type="submit" class="btn btn-primary w-100">
+                Contratar Serviço
+              </button>
+            </form>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info text-center mt-4">
+      {% if is_meus_servicos %} Você ainda não cadastrou nenhum serviço. {% else
+      %} O catálogo está vazio no momento. {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="mt-4">
+      <a
+        href="{{ url_for('auth.dashboard') }}"
+        class="btn btn-outline-secondary"
+        >Voltar ao Painel</a
+      >
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,3 +1,5 @@
 from .usuario import Usuario, TipoUsuario
+from .servico import Servico
+from .contratacao import Contratacao
 
-todos = ["Usuario", "TipoUsuario"]
+__all__ = ["Usuario", "TipoUsuario", "Servico", "Contratacao"]

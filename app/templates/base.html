@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConectaServ - {% block title %}Início{% endblock %}</title>
+    <!-- Bootstrap via CDN (deixa o layout bonito sem esforço) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('auth.index') }}">ConectaServ</a>
+
+            <div class="ms-auto">
+                <!-- Se o usuário estiver logado, mostra o botão de sair -->
+                {% if current_user.is_authenticated %}
+                    <span class="navbar-text me-3 text-white">
+                        Olá, {{ current_user.nome }}
+                    </span>
+                    <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-danger btn-sm">Sair</a>
+                {% else %}
+                    <!-- Se não estiver logado, mostra login e cadastro -->
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light btn-sm me-2">Entrar</a>
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-sm">Cadastrar</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container">
+        <!-- Área de mensagens (flash) -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <!-- O Bootstrap usa as classes 'danger', 'success', 'info' etc -->
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Aqui é onde as outras páginas vão injetar o conteúdo delas -->
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Script do Bootstrap (para o botão de fechar os alertas funcionar) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
