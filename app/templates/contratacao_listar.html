@@ -37,17 +37,17 @@
                         <tr>
                             <td>#{{ c.id }}</td>
                             <td><strong>{{ c.servico.titulo }}</strong></td>
-                            
+
                             <!-- Se for cliente, mostra o nome do prestador. Se for prestador, mostra o nome do cliente -->
                             {% if is_cliente %}
                                 <td>{{ c.servico.prestador.nome }}</td>
                             {% else %}
                                 <td>{{ c.cliente.nome }}</td>
                             {% endif %}
-                            
+
                             <td class="text-success fw-bold">R$ {{ "%.2f"|format(c.servico.preco) }}</td>
                             <td>{{ c.data_contratacao.strftime('%d/%m/%Y às %H:%M') }}</td>
-                            
+
                             <!-- Badge colorida dependendo do status -->
                             <td>
                                 {% if c.status == 'pendente' %}
@@ -70,7 +70,7 @@
                 {% endif %}
             </div>
         {% endif %}
-        
+
         <div class="mt-4">
             <a href="{{ url_for('auth.dashboard') }}" class="btn btn-outline-secondary">Voltar ao Painel</a>
         </div>

@@ -17,7 +17,7 @@ def nova(servico_id):
         flash("Serviço contratado com sucesso! O prestador entrará em contato.", "success")
     except ValueError as erro:
         flash(str(erro), "danger")
-    
+
     # Após contratar, volta para o catálogo
     return redirect(url_for("servico.catalogo"))
 

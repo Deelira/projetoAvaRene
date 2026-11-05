@@ -80,7 +80,7 @@ class UsuarioService:
         usuario = self.repo.buscar_por_id(usuario_id)
         if not usuario:
             raise ValueError("Usuário não encontrado.")
-            
+
         if usuario.tipo == TipoUsuario.PRESTADOR:
             raise ValueError("Você já é um prestador.")
 

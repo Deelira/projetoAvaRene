@@ -12,7 +12,7 @@ servico_bp = Blueprint("servico", __name__, url_prefix="/servicos")
 @login_required
 def cadastrar():
     """Apenas PRESTADORES podem cadastrar serviços."""
-    
+
     # 1. Controle de Acesso: Barrando clientes
     if current_user.tipo != TipoUsuario.PRESTADOR:
         flash("Acesso negado. Apenas prestadores podem cadastrar serviços.", "warning")

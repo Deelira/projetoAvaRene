@@ -14,8 +14,8 @@ class ContratacaoRepository(BaseRepository):
 
     def listar_por_prestador(self, prestador_id: int):
         """Retorna os pedidos recebidos por um prestador.
-        
-        Como a Contratacao não tem o ID do prestador (só do serviço), 
+
+        Como a Contratacao não tem o ID do prestador (só do serviço),
         precisamos fazer um JOIN com a tabela de Servicos.
         """
         return Contratacao.query.join(Servico).filter(Servico.prestador_id == prestador_id).all()

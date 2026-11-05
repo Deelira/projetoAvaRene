@@ -13,7 +13,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('auth.index') }}">ConectaServ</a>
-            
+
             <div class="ms-auto">
                 <!-- Se o usuário estiver logado, mostra o botão de sair -->
                 {% if current_user.is_authenticated %}

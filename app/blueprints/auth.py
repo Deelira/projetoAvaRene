@@ -47,7 +47,7 @@ def register():
         nome = request.form.get("nome", "")
         email = request.form.get("email", "")
         senha = request.form.get("senha", "")
-        
+
         # NOVO: Captura o tipo escolhido no formulário
         tipo_form = request.form.get("tipo", "cliente")
 
@@ -85,7 +85,7 @@ def tornar_prestador():
         flash("Parabéns! Sua conta foi atualizada. Agora você também pode oferecer serviços.", "success")
     except ValueError as erro:
         flash(str(erro), "danger")
-        
+
     return redirect(url_for("auth.dashboard"))
 
 @auth_bp.route("/dashboard")

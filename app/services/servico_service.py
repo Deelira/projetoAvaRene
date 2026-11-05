@@ -11,19 +11,19 @@ class ServicoService:
     # ---------- CREATE ----------
     def criar_servico(self, prestador_id: int, titulo: str, descricao: str, preco: str) -> Servico:
         """Valida os dados e cria um novo serviço para o prestador."""
-        
+
         # 1. Validações básicas (Regra de Negócio)
         if not titulo or not titulo.strip():
             raise ValueError("O título do serviço é obrigatório.")
         if not descricao or not descricao.strip():
             raise ValueError("A descrição do serviço é obrigatória.")
-        
+
         # 2. Converte o preço para número (do formulário HTML vem como texto)
         try:
             preco_float = float(preco)
         except (ValueError, TypeError):
             raise ValueError("O preço deve ser um número válido.")
-            
+
         if preco_float <= 0:
             raise ValueError("O preço deve ser maior que zero.")
 

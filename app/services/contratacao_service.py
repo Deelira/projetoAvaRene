@@ -13,7 +13,7 @@ class ContratacaoService:
     # ---------- CREATE ----------
     def contratar_servico(self, usuario_logado, servico_id: int):
         """Valida e cria uma nova contratação."""
-        
+
         # Regra 1: Apenas clientes podem contratar
         if usuario_logado.tipo not in [TipoUsuario.CLIENTE, TipoUsuario.PRESTADOR]:
             raise ValueError("Apenas usuários logados podem contratar serviços.")
@@ -23,7 +23,7 @@ class ContratacaoService:
         if not servico:
             raise ValueError("Serviço não encontrado.")
 
-        # Regra 3: Impedir que o prestador contrate o próprio serviço 
+        # Regra 3: Impedir que o prestador contrate o próprio serviço
         # (redundante por causa da Regra 1, mas é uma boa prática de segurança)
         if servico.prestador_id == usuario_logado.id:
             raise ValueError("Você não pode contratar o seu próprio serviço.")

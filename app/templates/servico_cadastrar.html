@@ -11,7 +11,7 @@
             </div>
             <div class="card-body p-4">
                 <form method="POST" action="{{ url_for('servico.cadastrar') }}">
-                    
+
                     <div class="mb-3">
                         <label for="titulo" class="form-label">Título do Serviço</label>
                         <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Ex: Conserto de torneira" required>
@@ -27,7 +27,7 @@
                         <!-- O step="0.01" permite centavos -->
                         <input type="number" step="0.01" min="0.01" class="form-control" id="preco" name="preco" placeholder="150.50" required>
                     </div>
-                    
+
                     <div class="d-flex justify-content-between mt-4">
                         <a href="{{ url_for('auth.dashboard') }}" class="btn btn-outline-secondary">Voltar</a>
                         <button type="submit" class="btn btn-success">Salvar Serviço</button>
