@@ -1,8 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-<<<<<<< HEAD
-
-db = SQLAlchemy()
-=======
 from flask_login import LoginManager
 
 # Objeto do banco de dados (SQLAlchemy).
@@ -20,4 +16,3 @@ login_manager.login_view = "auth.login"
 # Mensagem exibida quando o usuário é redirecionado (usada com flash()).
 login_manager.login_message = "Você precisa estar logado para acessar esta página."
 login_manager.login_message_category = "warning"
->>>>>>> master

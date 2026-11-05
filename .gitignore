@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-venv/
-**/__pycache__/
-*.pyc
-.env
-=======
 # Ambiente virtual
 venv/
 .venv/
@@ -25,4 +19,3 @@ __pycache__/
 # Configurações de IDE
 .vscode/
 .idea/
->>>>>>> master

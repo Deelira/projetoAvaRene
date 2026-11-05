@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-from ..extensions import db
-from enum import Enum
-
-class TipoUsuario(Enum):
-    Cliente: "cliente"
-    Prestador: "prestador"
-    Admin: "admin"
-
-class Usuario(db.Model):
-=======
 from enum import Enum
 
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -24,16 +13,12 @@ class TipoUsuario(Enum):
 
 
 class Usuario(db.Model, UserMixin):
->>>>>>> master
     __tablename__ = "usuarios"
 
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     senha_hash = db.Column(db.String(255), nullable=False)
-<<<<<<< HEAD
-    tipo = db.Column(db.Enum(TipoUsuario, name="tipo_usuario"), nullable=False)
-=======
     tipo = db.Column(
         db.Enum(TipoUsuario, name="tipo_usuario"),
         nullable=False,
@@ -52,4 +37,3 @@ class Usuario(db.Model, UserMixin):
     # ---------- Debug ----------
     def __repr__(self) -> str:
         return f"<Usuario {self.id} - {self.email}>"
->>>>>>> master

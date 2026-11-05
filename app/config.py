@@ -1,12 +1,4 @@
 import os
-<<<<<<< HEAD
-
-class Config:
-    SECRET_KEY = os.getenv("SECRET_KEY", "chave-secreta")
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://conecta:senha123@localhost:5432/conectaserv"
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    
-=======
 from dotenv import load_dotenv
 
 # Carrega as variáveis do arquivo .env (se existir)
@@ -27,4 +19,3 @@ class Config:
 
     # Evita o warning "SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
->>>>>>> master
