@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_login import login_required, current_user
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 
 from ..services.servico_service import ServicoService
+from ..services.usuario_service import UsuarioService, login_required
 from ..models.usuario import TipoUsuario
 
 # Criamos o Blueprint com o prefixo /servicos
@@ -13,8 +13,11 @@ servico_bp = Blueprint("servico", __name__, url_prefix="/servicos")
 def cadastrar():
     """Apenas PRESTADORES podem cadastrar serviços."""
 
+    # ← troca current_user por usuario_logado()
+    usuario = UsuarioService().usuario_logado()
+
     # 1. Controle de Acesso: Barrando clientes
-    if current_user.tipo != TipoUsuario.PRESTADOR:
+    if usuario.tipo != TipoUsuario.PRESTADOR:
         flash("Acesso negado. Apenas prestadores podem cadastrar serviços.", "warning")
         return redirect(url_for("auth.dashboard"))
 
@@ -25,8 +28,8 @@ def cadastrar():
 
         try:
             # O Service vai validar e salvar no banco.
-            # Passamos current_user.id para amarrar o serviço ao prestador logado.
-            ServicoService().criar_servico(current_user.id, titulo, descricao, preco)
+            # Passamos usuario.id para amarrar o serviço ao prestador logado.
+            ServicoService().criar_servico(usuario.id, titulo, descricao, preco)
             flash("Serviço cadastrado com sucesso!", "success")
             return redirect(url_for("servico.meus_servicos"))
         except ValueError as erro:
@@ -39,11 +42,14 @@ def cadastrar():
 @login_required
 def meus_servicos():
     """Lista os serviços criados pelo prestador logado."""
-    if current_user.tipo != TipoUsuario.PRESTADOR:
+
+    usuario = UsuarioService().usuario_logado()
+
+    if usuario.tipo != TipoUsuario.PRESTADOR:
         flash("Acesso negado. Área restrita para prestadores.", "warning")
         return redirect(url_for("auth.dashboard"))
 
-    servicos = ServicoService().listar_servicos_do_prestador(current_user.id)
+    servicos = ServicoService().listar_servicos_do_prestador(usuario.id)
     return render_template("servico_listar.html", servicos=servicos, is_meus_servicos=True)
 
 

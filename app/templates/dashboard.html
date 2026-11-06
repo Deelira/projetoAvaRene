@@ -10,16 +10,16 @@
                 <h4 class="mb-0">Painel do Usuário</h4>
             </div>
             <div class="card-body p-4">
-                <h5 class="card-title">Bem-vindo(a), {{ current_user.nome }}!</h5>
+                <h5 class="card-title">Bem-vindo(a), {{ usuario.nome }}!</h5>
                 <p class="card-text text-muted">
-                    Você está logado como <strong>{{ current_user.tipo.value|capitalize }}</strong>.
+                    Você está logado como <strong>{{ usuario.tipo.value|capitalize }}</strong>.
                 </p>
 
                 <hr>
 
                 <div class="row mt-4">
                     <!-- ÁREA DO PRESTADOR -->
-                    {% if current_user.tipo.value == 'prestador' %}
+                    {% if usuario.tipo.value == 'prestador' %}
                         <div class="col-md-4 mb-3">
                             <div class="card bg-light h-100">
                                 <div class="card-body text-center">
@@ -62,7 +62,7 @@
                     </div>
 
                     <!-- BOTÃO DE UPGRADE (Só aparece se for Cliente) -->
-                    {% if current_user.tipo.value == 'cliente' %}
+                    {% if usuario.tipo.value == 'cliente' %}
                         <div class="col-12 mt-3">
                             <div class="alert alert-info d-flex justify-content-between align-items-center">
                                 <div>
