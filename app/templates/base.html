@@ -16,9 +16,9 @@
 
             <div class="ms-auto">
                 <!-- Se o usuário estiver logado, mostra o botão de sair -->
-                {% if current_user.is_authenticated %}
+                {% if usuario %}
                     <span class="navbar-text me-3 text-white">
-                        Olá, {{ current_user.nome }}
+                        Olá, {{ usuario.nome }}
                     </span>
                     <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-danger btn-sm">Sair</a>
                 {% else %}
